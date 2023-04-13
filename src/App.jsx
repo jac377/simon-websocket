@@ -1,3 +1,4 @@
+import {NavLink, Route, Routes} from 'react-router-dom';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -26,38 +27,46 @@ function App() {
   return (
     <div className="body bg-dark text-light">
       <header className="container-fluid">
-        <nav classNameName="navbar fixed-top navbar-dark">
-          <div className="navbar-brand">
+        <nav className='navbar fixed-top navbar-dark'>
+          <div className='navbar-brand'>
             Simon<sup>&reg;</sup>
           </div>
-          <menu className="navbar-nav">
-            <li className="nav-item">
-              <a className="nav-link active" href="index.html">
-                Home
-              </a>
+          <menu className='navbar-nav'>
+            <li className='nav-item'>
+              <NavLink className='nav-link' to=''>
+                Login
+              </NavLink>
             </li>
             {authState === AuthState.Authenticated && (
               <li className='nav-item'>
-                <a className='nav-link' href='play.html'>
+                <NavLink className='nav-link' to='play'>
                   Play
-                </a>
+                </NavLink>
               </li>
             )}
             {authState === AuthState.Authenticated && (
               <li className='nav-item'>
-                <a className='nav-link'  href='scores.html'>
+                <NavLink className='nav-link' to='scores'>
                   Scores
-                </a>
+                </NavLink>
               </li>
             )}
-            <li className="nav-item">
-              <a className="nav-link active" href="about.html">
+            <li className='nav-item'>
+              <NavLink className='nav-link' to='about'>
                 About
-              </a>
+              </NavLink>
             </li>
           </menu>
         </nav>
       </header>
+
+      <Routes>
+        <Route path='/' element={<Login />} exact />
+        <Route path='/play' element={<Play />} />
+        <Route path='/scores' element={<Scores />} />
+        <Route path='/about' element={<About />} />
+        <Route path='*' element={<NotFound />} />
+      </Routes>
 
       <footer class="bg-dark text-dark text-muted">
         <div class="container-fluid">
@@ -67,6 +76,10 @@ function App() {
       </footer>
     </div>
   );
+}
+
+function NotFound() {
+  return <main className='container-fluid bg-secondary text-center'>404: Return to sender. Address unknown.</main>;
 }
 
 export default App;
